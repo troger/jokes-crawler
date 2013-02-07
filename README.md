@@ -13,9 +13,10 @@ The crawler will fetch itself all the joke links for the category
 Full options:
 
     Usage: jokes-crawler.rb [options]
-    -u, --messages-url URL           The jokes category url
+    -c, --category-id CATEGORY_ID    The category id where to post the jokes
     -s, --sosmessage-url URL         The SosMessage API url
-    -c, --category-id CATEGORY_ID    The category id where to post the messages
-    -m, --max-characters MAX         MAX characters of the message
+    -u, --messages-url URL           The jokes category url
+    -f, --max-messages MAX           MAX messages to fetch
+    -m, --max-characters MAX         MAX characters of the joke
     -n, --dry-run                    Don't actually post the messages, only display them
     -h, --help                       Display this screen
