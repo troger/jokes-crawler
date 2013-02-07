@@ -26,15 +26,24 @@ class MessageParser
     puts "Retrieving messages..."
     messages = []
     doc = Nokogiri::HTML(open(@url))
-    doc.css("#tier_4 div.left_column div.middle a").each do |link|
+
+    links = doc.css("#tier_4 div.left_column div.middle a")
+    max_messages = @max_messages
+    max_messages = links.length if @max_messages > links.length
+    while true do
+      link = links[Random.rand(links.length)]
       message_url = link['href']
       message = Nokogiri::HTML(open(message_url))
+
+      text = ""
       message.css("div.arrow_area > div.content_wrap p").each do |ele|
-        text = ele.content
-        text.strip!
+        text += ele.content
+      end
+      text.strip!
+      if !messages.include?(text)
         messages << text unless text.length > @max_characters || text.length < 10
       end
-      break if messages.length >= @max_messages
+      break if messages.length >= max_messages
     end
     puts "#{messages.length} messages found."
     messages
